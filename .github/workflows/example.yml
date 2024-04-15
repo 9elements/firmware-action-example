@@ -1,0 +1,38 @@
+---
+# Example of using firmware-action
+
+name: coreboot build
+on:
+  push
+
+permissions:
+  contents: read
+
+jobs:
+  # Example of building coreboot
+  build-coreboot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          submodules: 'recursive'
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: firmware-action
+        uses: 9elements/firmware-action@v0.2.0
+        with:
+          config: 'firmware-action.json'
+          target: 'coreboot-example'
+          recursive: 'false'
+
+      - name: Get artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coreboot-4.19
+          path: output-coreboot
+          retention-days: 30
