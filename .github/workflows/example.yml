@@ -24,7 +24,7 @@ jobs:
           go-version: stable
 
       - name: firmware-action
-        uses: 9elements/firmware-action@v0.2.1
+        uses: 9elements/firmware-action@v0.3.2
         with:
           config: 'firmware-action.json'
           target: 'coreboot-example'
