@@ -20,7 +20,10 @@
         "fsp_header_path": "",
         "vbt_path": "",
         "ec_path": ""
-      }
+      },
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": null
     }
   }
 }
