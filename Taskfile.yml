@@ -2,32 +2,35 @@
 version: '3'
 vars:
   FIRMWAREACTION_REPO: '.firmware-action'
-  FIRMWAREACTION_VERSION: 'v0.2.0'
+  FIRMWAREACTION_VERSION: 'v0.5.0'
+  CACHE_DIR:
+    sh: echo "${XDG_CACHE_HOME:-$HOME/.config}/firmware-action/{{.FIRMWAREACTION_VERSION}}"
 
 tasks:
-  prepare-firmware-action-repo:
-    desc: Task to clone firmware-action repository
+  mkdir:
+    desc: Make bin directory
     internal: true
     cmds:
-      - if [ ! -d {{.FIRMWAREACTION_REPO}} ]; then
-        git clone -b {{.FIRMWAREACTION_VERSION}} https://github.com/9elements/firmware-action.git {{.FIRMWAREACTION_REPO}};
-        fi
-      - cd {{.FIRMWAREACTION_REPO}}; git checkout {{.FIRMWAREACTION_VERSION}}
+      - mkdir -p "{{.CACHE_DIR}}"
+    status:
+      - test -d "{{.CACHE_DIR}}"
 
-  build-firmware-action-binary:
+  download-firmware-action-binary:
     desc: Task to build a firmware-action binary
     internal: true
-    deps: [prepare-firmware-action-repo]
-    dir: ./{{.FIRMWAREACTION_REPO}}/action
+    deps: [mkdir]
+    dir: '{{.CACHE_DIR}}'
     cmds:
-      - if [ ! -f ../../firmware-action-{{.FIRMWAREACTION_VERSION}} ]; then
-        GOARCH=amd64 go build -ldflags="-s -w" -o ../../firmware-action-{{.FIRMWAREACTION_VERSION}};
-        fi
-    env:
-      CGO_ENABLED: 0
+      - echo "PWD = ${USER_WORKING_DIR}"
+      - wget --continue "https://github.com/9elements/firmware-action/releases/download/{{.FIRMWAREACTION_VERSION}}/firmware-action_$(uname -s)_$(uname -m).tar.gz"
+      - tar -xvzf "firmware-action_$(uname -s)_$(uname -m).tar.gz"
+      - chmod +x 'firmware-action'
+      - cp '{{.CACHE_DIR}}/firmware-action'
+    status:
+      - test -f '{{.CACHE_DIR}}/firmware-action'
 
   build:
     desc: Template task to build a go binary
-    deps: [build-firmware-action-binary]
+    deps: [download-firmware-action-binary]
     cmds:
-      - ./firmware-action-v0.2.0 build --config=firmware-action.json --target=coreboot-example
+      - echo '{{.CACHE_DIR}}'; '{{.CACHE_DIR}}/firmware-action' build --config=firmware-action.json --target=coreboot-example
