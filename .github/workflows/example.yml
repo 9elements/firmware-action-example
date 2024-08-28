@@ -18,10 +18,6 @@ jobs:
         with:
           fetch-depth: 0
           submodules: 'recursive'
-      - name: Setup Go
-        uses: actions/setup-go@v5
-        with:
-          go-version: stable
 
       - name: firmware-action
         uses: 9elements/firmware-action@v0.6.1
