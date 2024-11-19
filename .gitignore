@@ -1,3 +1,4 @@
 /firmware-action-v0.2.0
 /.firmware-action
-/output-coreboot
+/output-*/
+/.task/
