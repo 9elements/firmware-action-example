@@ -13,19 +13,18 @@ permissions:
 
 jobs:
   # Example of building coreboot
-  build-coreboot:
+  build-coreboot-example:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
           submodules: 'recursive'
 
       - name: firmware-action
         uses: 9elements/firmware-action@v0.11.1
         with:
-          config: 'firmware-action.json'
+          config: 'coreboot-example.json'
           target: 'coreboot-example'
           recursive: 'false'
 
