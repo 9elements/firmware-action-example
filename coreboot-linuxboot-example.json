@@ -1,0 +1,71 @@
+{
+  "coreboot": {
+    "coreboot-example-with-linuxboot": {
+      "depends": [
+        "linux-example-with-uroot"
+      ],
+      "sdk_url": "ghcr.io/9elements/firmware-action/coreboot_24.05:main",
+      "repo_path": "coreboot-linuxboot-example/coreboot/",
+      "defconfig_path": "coreboot-linuxboot-example/coreboot_linuxboot_defconfig",
+      "output_dir": "output-linuxboot-coreboot/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "build/coreboot.rom",
+        "defconfig"
+      ],
+      "blobs": {
+        "payload_file_path": "",
+        "intel_ifd_path": "",
+        "intel_me_path": "",
+        "intel_gbe_path": "",
+        "fsp_binary_path": "",
+        "fsp_header_path": "",
+        "vbt_path": "",
+        "ec_path": ""
+      },
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": [
+        "output-linuxboot-linux/bzImage"
+      ]
+    }
+  },
+  "linux": {
+    "linux-example-with-uroot": {
+      "depends": [
+        "uroot-example"
+      ],
+      "sdk_url": "ghcr.io/9elements/firmware-action/linux_6.9.9:main",
+      "arch": "x86_64",
+      "repo_path": "coreboot-linuxboot-example/linux/",
+      "defconfig_path": "coreboot-linuxboot-example/linux_defconfig",
+      "output_dir": "output-linuxboot-linux/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "arch/x86/boot/bzImage"
+      ],
+      "gcc_version": "",
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": [
+        "output-linuxboot-uroot/initramfs.linux_amd64.cpio"
+      ]
+    }
+  },
+  "u-root": {
+    "uroot-example": {
+      "depends": null,
+      "sdk_url": "ghcr.io/9elements/firmware-action/uroot_0.14.0:main",
+      "repo_path": "coreboot-linuxboot-example/u-root/",
+      "output_dir": "output-linuxboot-uroot/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "../tmp/initramfs.linux_amd64.cpio"
+      ],
+      "build_command": "go build; GOARCH=amd64 GOOS=linux ./u-root core boot",
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": null
+    }
+  }
+}
