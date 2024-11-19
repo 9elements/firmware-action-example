@@ -5,4 +5,4 @@ tasks:
   build:coreboot:
     desc: Build coreboot hello world example
     cmds:
-      - firmware-action build --config=firmware-action.json --target=coreboot-example {{.CLI_ARGS}}
+      - firmware-action build --config=coreboot-example.json --target=coreboot-example {{.CLI_ARGS}}
