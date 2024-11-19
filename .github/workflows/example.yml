@@ -34,3 +34,25 @@ jobs:
           name: coreboot-4.19
           path: output-coreboot
           retention-days: 30
+
+  build-coreboot-linuxboot-example:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: firmware-action
+        uses: 9elements/firmware-action@v0.9.0
+        with:
+          config: 'coreboot-linuxboot-example.json'
+          target: 'coreboot-example-with-linuxboot'
+          recursive: 'true'
+
+      - name: Get artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coreboot-4.19
+          path: output-coreboot
+          retention-days: 30
