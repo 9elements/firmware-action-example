@@ -1,3 +1,12 @@
 [submodule "coreboot-example/coreboot"]
 	path = coreboot-example/coreboot
 	url = https://review.coreboot.org/coreboot
+[submodule "coreboot-linuxboot-example/u-root"]
+	path = coreboot-linuxboot-example/u-root
+	url = https://github.com/u-root/u-root.git
+[submodule "coreboot-linuxboot-example/linux"]
+	path = coreboot-linuxboot-example/linux
+	url = https://github.com/torvalds/linux.git
+[submodule "coreboot-linuxboot-example/coreboot"]
+	path = coreboot-linuxboot-example/coreboot
+	url = https://review.coreboot.org/coreboot
