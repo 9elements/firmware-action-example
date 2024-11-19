@@ -1,0 +1,3 @@
+[submodule "coreboot-example/coreboot"]
+	path = coreboot-example/coreboot
+	url = https://review.coreboot.org/coreboot
