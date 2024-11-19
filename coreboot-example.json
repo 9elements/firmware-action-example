@@ -3,9 +3,9 @@
     "coreboot-example": {
       "depends": null,
       "sdk_url": "ghcr.io/9elements/firmware-action/coreboot_4.19:main",
-      "repo_path": "coreboot/",
-      "defconfig_path": "coreboot_seabios_defconfig",
-      "output_dir": "output-coreboot/",
+      "repo_path": "coreboot-example/coreboot/",
+      "defconfig_path": "coreboot-example/coreboot_seabios_defconfig",
+      "output_dir": "output-coreboot-example/",
       "container_output_dirs": null,
       "container_output_files": [
         "build/coreboot.rom",
