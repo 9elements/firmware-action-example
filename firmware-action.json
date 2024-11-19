@@ -4,7 +4,7 @@
       "depends": null,
       "sdk_url": "ghcr.io/9elements/firmware-action/coreboot_4.19:main",
       "repo_path": "coreboot/",
-      "defconfig_path": "seabios_defconfig",
+      "defconfig_path": "coreboot_seabios_defconfig",
       "output_dir": "output-coreboot/",
       "container_output_dirs": null,
       "container_output_files": [
