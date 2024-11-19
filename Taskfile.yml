@@ -1,36 +1,8 @@
 ---
 version: '3'
-vars:
-  FIRMWAREACTION_REPO: '.firmware-action'
-  FIRMWAREACTION_VERSION: 'v0.5.0'
-  CACHE_DIR:
-    sh: echo "${XDG_CACHE_HOME:-$HOME/.config}/firmware-action/{{.FIRMWAREACTION_VERSION}}"
 
 tasks:
-  mkdir:
-    desc: Make bin directory
-    internal: true
+  build:coreboot:
+    desc: Build coreboot hello world example
     cmds:
-      - mkdir -p "{{.CACHE_DIR}}"
-    status:
-      - test -d "{{.CACHE_DIR}}"
-
-  download-firmware-action-binary:
-    desc: Task to build a firmware-action binary
-    internal: true
-    deps: [mkdir]
-    dir: '{{.CACHE_DIR}}'
-    cmds:
-      - echo "PWD = ${USER_WORKING_DIR}"
-      - wget --continue "https://github.com/9elements/firmware-action/releases/download/{{.FIRMWAREACTION_VERSION}}/firmware-action_$(uname -s)_$(uname -m).tar.gz"
-      - tar -xvzf "firmware-action_$(uname -s)_$(uname -m).tar.gz"
-      - chmod +x 'firmware-action'
-      - cp '{{.CACHE_DIR}}/firmware-action'
-    status:
-      - test -f '{{.CACHE_DIR}}/firmware-action'
-
-  build:
-    desc: Template task to build a go binary
-    deps: [download-firmware-action-binary]
-    cmds:
-      - echo '{{.CACHE_DIR}}'; '{{.CACHE_DIR}}/firmware-action' build --config=firmware-action.json --target=coreboot-example
+      - firmware-action build --config=firmware-action.json --target=coreboot-example {{.CLI_ARGS}}
