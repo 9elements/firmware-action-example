@@ -1,11 +1,13 @@
 ---
 version: '3'
+vars:
+  FIRMWARE_ACTION_CONFIG_FILE: 'coreboot-linuxboot-example.json'
 
 tasks:
   build-template:
     internal: true
     cmds:
-      - firmware-action build --config='{{.CONFIG}}' --target='{{.TARGET}}' {{.CLI_ARGS}}
+      - firmware-action build --config='{{.CONFIG}}' --target='{{.TARGET}}' --recursive {{.CLI_ARGS}}
     requires:
       vars: [CONFIG, TARGET]
 
@@ -13,16 +15,41 @@ tasks:
   # coreboot example
   #==================
 
-  build:coreboot:
+  build:coreboot-plain:
     desc: Build coreboot hello world example
     cmds:
-      - firmware-action build --config=coreboot-example.json --target=coreboot-example {{.CLI_ARGS}}
       - task: build-template
         vars:
           CONFIG: coreboot-example.json
           TARGET: coreboot-example
-    status:
-      - test -d output-coreboot-example
+
+  #=======================================
+  # coreboot with Linux and uroot example
+  #=======================================
+
+  build:coreboot-linux:
+    desc: Build coreboot hello world example
+    cmds:
+      - task: build-template
+        vars:
+          CONFIG: '{{.FIRMWARE_ACTION_CONFIG_FILE}}'
+          TARGET: coreboot-example-with-linuxboot
+
+  build:linux-with-uroot:
+    desc: Build linux with uroot
+    cmds:
+      - task: build-template
+        vars:
+          CONFIG: '{{.FIRMWARE_ACTION_CONFIG_FILE}}'
+          TARGET: linux-example-with-uroot
+
+  build:uroot:
+    desc: Build uroot
+    cmds:
+      - task: build-template
+        vars:
+          CONFIG: '{{.FIRMWARE_ACTION_CONFIG_FILE}}'
+          TARGET: uroot-example
 
   #=============================================
   # Run coreboot with LinuxBoot example in QEMU
@@ -33,77 +60,3 @@ tasks:
     interactive: true
     cmds:
       - qemu-system-x86_64 -bios output-linuxboot-coreboot/coreboot.rom -serial stdio -M q35
-
-  #================================================
-  # coreboot with LinuxBoot example with recursion
-  #================================================
-
-  build:coreboot-linuxboot:recursive:
-    desc: Build coreboot with linux and uroot with recursion
-    cmds:
-      - firmware-action build --config='{{.CONFIG}}' --target='{{.TARGET}}' --recursive {{.CLI_ARGS}}
-    vars:
-      CONFIG: coreboot-linuxboot-example.json
-      TARGET: coreboot-example-with-linuxboot
-    requires:
-      vars: [CONFIG, TARGET]
-
-  #============================================
-  # coreboot with LinuxBoot example one by one
-  #============================================
-
-  build:coreboot-linuxboot:
-    desc: Build coreboot with linux and uroot
-    deps:
-      - task: build:linux-with-uroot
-    cmds:
-      - if [ -d "{{.OUTPUT}}" ]; then trash "{{.OUTPUT}}"; fi
-      - task: build-template
-        vars:
-          CONFIG: coreboot-linuxboot-example.json
-          TARGET: coreboot-example-with-linuxboot
-    vars:
-      OUTPUT: 'output-linuxboot-coreboot'
-    sources:
-      - coreboot-linuxboot-example.json
-      - coreboot-linuxboot-example/coreboot
-      - coreboot-linuxboot-example/coreboot_linuxboot_defconfig
-      - output-linuxboot-linux/bzImage
-    generates:
-      - output-linuxboot-coreboot/coreboot.rom
-
-  build:linux-with-uroot:
-    desc: Build linux with uroot
-    deps:
-      - task: build:uroot
-    cmds:
-      - if [ -d "{{.OUTPUT}}" ]; then trash "{{.OUTPUT}}"; fi
-      - task: build-template
-        vars:
-          CONFIG: coreboot-linuxboot-example.json
-          TARGET: linux-example-with-uroot
-    vars:
-      OUTPUT: 'output-linuxboot-linux'
-    sources:
-      - coreboot-linuxboot-example.json
-      - coreboot-linuxboot-example/linux
-      - coreboot-linuxboot-example/linux_defconfig
-      - output-linuxboot-uroot/initramfs.linux_amd64.cpio
-    generates:
-      - output-linuxboot-linux/bzImage
-
-  build:uroot:
-    desc: Build uroot
-    cmds:
-      - if [ -d "{{.OUTPUT}}" ]; then trash "{{.OUTPUT}}"; fi
-      - task: build-template
-        vars:
-          CONFIG: coreboot-linuxboot-example.json
-          TARGET: uroot-example
-    vars:
-      OUTPUT: 'output-linuxboot-uroot'
-    sources:
-      - coreboot-linuxboot-example.json
-      - coreboot-linuxboot-example/u-root
-    generates:
-      - output-linuxboot-uroot/initramfs.linux_amd64.cpio
