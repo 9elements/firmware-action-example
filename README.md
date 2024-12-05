@@ -7,6 +7,8 @@ Example usage of [firmware-action](https://github.com/9elements/firmware-action)
 
 Firstly, install `firmware-action` as [described in documentation](https://9elements.github.io/firmware-action/firmware-action/get_started/04_get_firmware_action.html).
 
+Optionally, install [Taskfile](https://taskfile.dev/installation/). `Taskfile` in the examples below.
+
 ### Simple example
 
 If running ArchLinux replace `task` with `go-task`.
