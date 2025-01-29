@@ -1,6 +1,4 @@
 ---
-# Example of using firmware-action
-
 name: linuxboot build
 on:
   push:
