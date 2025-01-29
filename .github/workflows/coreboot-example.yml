@@ -29,5 +29,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: coreboot-4.19
-          path: output-coreboot
+          path: output-coreboot-example
           retention-days: 30
