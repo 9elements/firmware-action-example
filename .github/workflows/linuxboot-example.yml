@@ -67,7 +67,7 @@ jobs:
       #============================
 
       - name: firmware-action
-        uses: 9elements/firmware-action@v0.13.0
+        uses: 9elements/firmware-action@v0.14.0
         with:
           config: 'coreboot-linuxboot-example.json'
           target: 'coreboot-example-with-linuxboot'
