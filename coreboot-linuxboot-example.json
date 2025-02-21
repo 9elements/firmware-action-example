@@ -26,7 +26,7 @@
       "depends": [
         "uroot-example"
       ],
-      "sdk_url": "ghcr.io/9elements/firmware-action/linux_6.9.9:main",
+      "sdk_url": "ghcr.io/9elements/firmware-action/linux_6.6:main",
       "arch": "x86_64",
       "repo_path": "coreboot-linuxboot-example/linux/",
       "defconfig_path": "coreboot-linuxboot-example/linux_defconfig",
