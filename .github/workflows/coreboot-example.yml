@@ -22,10 +22,7 @@ jobs:
           config: 'coreboot-example.json'
           target: 'coreboot-example'
           recursive: 'false'
-
-      - name: Get artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: coreboot-4.19
-          path: output-coreboot-example
-          retention-days: 30
+          debug: 'true'
+          auto-cache: 'true'
+          auto-artifact-download: 'true'
+          auto-artifact-upload: 'true'
