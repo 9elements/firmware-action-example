@@ -1,0 +1,93 @@
+---
+name: linuxboot build in separate jobs
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build-uroot:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        release_type: ['DEBUG', 'RELEASE']
+    outputs:
+      artifact-name-DEBUG: ${{ steps.firmware-action.outputs.artifact-name }}
+      artifact-name-RELEASE: ${{ steps.firmware-action.outputs.artifact-name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: firmware-action
+        id: firmware-action
+        uses: 9elements/firmware-action@v0.15.0
+        with:
+          config: 'coreboot-linuxboot-example-matrix.json'
+          target: 'uroot-example-${{ matrix.release_type }}'
+          recursive: 'false'
+          debug: 'true'
+          auto-cache: 'true'
+          auto-artifact-download: 'true'
+          auto-artifact-upload: 'true'
+        env:
+          RELEASE_TYPE: ${{ matrix.release_type }}
+
+  build-linux:
+    runs-on: ubuntu-latest
+    needs: ['build-uroot']
+    strategy:
+      matrix:
+        release_type: ['DEBUG', 'RELEASE']
+    outputs:
+      artifact-name-DEBUG: ${{ steps.firmware-action.outputs.artifact-name }}
+      artifact-name-RELEASE: ${{ steps.firmware-action.outputs.artifact-name }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: firmware-action
+        id: firmware-action
+        uses: 9elements/firmware-action@v0.15.0
+        with:
+          config: 'coreboot-linuxboot-example-matrix.json'
+          target: 'linux-example-with-uroot-${{ matrix.release_type }}'
+          recursive: 'false'
+          debug: 'true'
+          auto-cache: 'true'
+          auto-artifact-download: 'true'
+          auto-artifact-upload: 'true'
+        env:
+          RELEASE_TYPE: ${{ matrix.release_type }}
+
+  build-coreboot:
+    runs-on: ubuntu-latest
+    needs: ['build-linux']
+    strategy:
+      matrix:
+        release_type: ['DEBUG', 'RELEASE']
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+      - name: Fetch few missing submodules
+        run: |
+          git submodule update --depth 1 --init --recursive --checkout
+
+      - name: firmware-action
+        uses: 9elements/firmware-action@v0.15.0
+        with:
+          config: 'coreboot-linuxboot-example-matrix.json'
+          target: 'coreboot-example-with-linuxboot-${{ matrix.release_type }}'
+          recursive: 'true'
+          debug: 'true'
+          auto-cache: 'true'
+          auto-artifact-download: 'true'
+          auto-artifact-upload: 'true'
+        env:
+          RELEASE_TYPE: ${{ matrix.release_type }}
