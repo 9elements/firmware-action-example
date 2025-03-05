@@ -21,6 +21,7 @@ jobs:
         with:
           submodules: 'recursive'
 
+        # ANCHOR: Parametric
       - name: firmware-action
         id: firmware-action
         uses: 9elements/firmware-action@v0.15.0
@@ -34,6 +35,7 @@ jobs:
           auto-artifact-upload: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
+        # ANCHOR_END: Parametric
 
   build-linux:
     runs-on: ubuntu-latest

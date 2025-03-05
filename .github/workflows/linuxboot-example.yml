@@ -18,13 +18,25 @@ jobs:
         run: |
           git submodule update --depth 1 --init --recursive --checkout
 
+        # ANCHOR: AllFeatures
       - name: firmware-action
         uses: 9elements/firmware-action@v0.15.0
         with:
+          # Required inputs
           config: 'coreboot-linuxboot-example.json'
           target: 'coreboot-example-with-linuxboot'
-          recursive: 'true'
-          debug: 'true'
+
+          # Build options
+          recursive: 'true'  # Build with dependencies
+          debug: 'true'      # Increase verbosity
+
+          # Caching and artifacts
           auto-cache: 'true'
-          auto-artifact-download: 'true'
           auto-artifact-upload: 'true'
+          auto-artifact-download: 'true'
+
+          # Artifact configuration
+          artifact-compression-level: '9'
+          artifact-if-no-files-found: 'warn'
+          artifact-overwrite: 'true'
+        # ANCHOR_END: AllFeatures

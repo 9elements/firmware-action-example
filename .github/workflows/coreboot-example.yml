@@ -16,13 +16,18 @@ jobs:
         with:
           submodules: 'recursive'
 
+        # ANCHOR: CorebootExample
       - name: firmware-action
         uses: 9elements/firmware-action@v0.15.0
+        id: firmware
         with:
           config: 'coreboot-example.json'
           target: 'coreboot-example'
-          recursive: 'false'
-          debug: 'true'
           auto-cache: 'true'
-          auto-artifact-download: 'true'
           auto-artifact-upload: 'true'
+
+      - name: Use artifact info
+        run: |
+          echo "Artifact name: ${{ steps.firmware.outputs.artifact-name }}"
+          echo "Download from: ${{ steps.firmware.outputs.artifact-url }}"
+        # ANCHOR_END: CorebootExample
