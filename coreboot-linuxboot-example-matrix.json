@@ -1,0 +1,62 @@
+{
+  "coreboot": {
+    "coreboot-example-with-linuxboot-${RELEASE_TYPE}": {
+      "depends": [
+        "linux-example-with-uroot-${RELEASE_TYPE}"
+      ],
+      "sdk_url": "ghcr.io/9elements/firmware-action/coreboot_24.05:main",
+      "repo_path": "coreboot-linuxboot-example/coreboot/",
+      "defconfig_path": "coreboot-linuxboot-example/coreboot_linuxboot_defconfig",
+      "output_dir": "output-linuxboot-coreboot-${RELEASE_TYPE}/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "build/coreboot.rom",
+        "defconfig"
+      ],
+      "blobs": {},
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": [
+        "output-linuxboot-linux-${RELEASE_TYPE}/bzImage"
+      ]
+    }
+  },
+  "linux": {
+    "linux-example-with-uroot-${RELEASE_TYPE}": {
+      "depends": [
+        "uroot-example-${RELEASE_TYPE}"
+      ],
+      "sdk_url": "ghcr.io/9elements/firmware-action/linux_6.6:main",
+      "arch": "x86_64",
+      "repo_path": "coreboot-linuxboot-example/linux/",
+      "defconfig_path": "coreboot-linuxboot-example/linux_defconfig",
+      "output_dir": "output-linuxboot-linux-${RELEASE_TYPE}/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "arch/x86/boot/bzImage"
+      ],
+      "gcc_version": "",
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": [
+        "output-linuxboot-uroot-${RELEASE_TYPE}/initramfs.linux_amd64.cpio"
+      ]
+    }
+  },
+  "u-root": {
+    "uroot-example-${RELEASE_TYPE}": {
+      "depends": null,
+      "sdk_url": "ghcr.io/9elements/firmware-action/uroot_0.14.0:main",
+      "repo_path": "coreboot-linuxboot-example/u-root/",
+      "output_dir": "output-linuxboot-uroot-${RELEASE_TYPE}/",
+      "container_output_dirs": null,
+      "container_output_files": [
+        "../tmp/initramfs.linux_amd64.cpio"
+      ],
+      "build_command": "go build; GOARCH=amd64 GOOS=linux ./u-root core boot",
+      "container_input_dir": "inputs/",
+      "input_dirs": null,
+      "input_files": null
+    }
+  }
+}
