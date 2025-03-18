@@ -23,8 +23,8 @@ jobs:
         with:
           config: 'coreboot-example.json'
           target: 'coreboot-example'
-          auto-cache: 'true'
-          auto-artifact-upload: 'true'
+          enable-cache: 'true'
+          auto-upload-artifacts: 'true'
 
       - name: Use artifact info
         run: |

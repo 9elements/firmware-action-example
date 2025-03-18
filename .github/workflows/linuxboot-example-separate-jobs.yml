@@ -30,9 +30,9 @@ jobs:
           target: 'uroot-example-${{ matrix.release_type }}'
           recursive: 'false'
           debug: 'true'
-          auto-cache: 'true'
-          auto-artifact-download: 'true'
-          auto-artifact-upload: 'true'
+          enable-cache: 'true'
+          auto-download-artifacts: 'true'
+          auto-upload-artifacts: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
         # ANCHOR_END: Parametric
@@ -60,9 +60,9 @@ jobs:
           target: 'linux-example-with-uroot-${{ matrix.release_type }}'
           recursive: 'false'
           debug: 'true'
-          auto-cache: 'true'
-          auto-artifact-download: 'true'
-          auto-artifact-upload: 'true'
+          enable-cache: 'true'
+          auto-download-artifacts: 'true'
+          auto-upload-artifacts: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
 
@@ -88,8 +88,8 @@ jobs:
           target: 'coreboot-example-with-linuxboot-${{ matrix.release_type }}'
           recursive: 'true'
           debug: 'true'
-          auto-cache: 'true'
-          auto-artifact-download: 'true'
-          auto-artifact-upload: 'true'
+          enable-cache: 'true'
+          auto-download-artifacts: 'true'
+          auto-upload-artifacts: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}

@@ -31,12 +31,12 @@ jobs:
           debug: 'true'      # Increase verbosity
 
           # Caching and artifacts
-          auto-cache: 'true'
-          auto-artifact-upload: 'true'
-          auto-artifact-download: 'true'
+          enable-cache: 'true'
+          auto-download-artifacts: 'true'
+          auto-upload-artifacts: 'true'
 
           # Artifact configuration
-          artifact-compression-level: '9'
-          artifact-if-no-files-found: 'warn'
-          artifact-overwrite: 'true'
+          auto-upload-artifacts-if-no-files-found: 'warn'
+          auto-upload-artifacts-compression-level: '6'
+          auto-upload-artifacts-overwrite: 'true'
         # ANCHOR_END: AllFeatures
