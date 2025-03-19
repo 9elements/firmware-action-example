@@ -17,7 +17,7 @@ jobs:
           submodules: 'recursive'
 
       - name: firmware-action
-        uses: 9elements/firmware-action@v0.14.1
+        uses: 9elements/firmware-action@v0.15.0
         with:
           config: 'coreboot-example.json'
           target: 'coreboot-example'
