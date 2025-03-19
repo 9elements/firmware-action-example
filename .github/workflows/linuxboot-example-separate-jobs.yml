@@ -33,6 +33,7 @@ jobs:
           enable-cache: 'true'
           auto-download-artifacts: 'true'
           auto-upload-artifacts: 'true'
+          compile: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
         # ANCHOR_END: Parametric
@@ -63,6 +64,7 @@ jobs:
           enable-cache: 'true'
           auto-download-artifacts: 'true'
           auto-upload-artifacts: 'true'
+          compile: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
 
@@ -91,5 +93,6 @@ jobs:
           enable-cache: 'true'
           auto-download-artifacts: 'true'
           auto-upload-artifacts: 'true'
+          compile: 'true'
         env:
           RELEASE_TYPE: ${{ matrix.release_type }}
