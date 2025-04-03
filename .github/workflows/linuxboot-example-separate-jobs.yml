@@ -24,7 +24,7 @@ jobs:
         # ANCHOR: Parametric
       - name: firmware-action
         id: firmware-action
-        uses: 9elements/firmware-action@v0.16.0
+        uses: 9elements/firmware-action@v0.17.0
         with:
           config: 'coreboot-linuxboot-example-matrix.json'
           target: 'uroot-example-${{ matrix.release_type }}'
@@ -54,7 +54,7 @@ jobs:
 
       - name: firmware-action
         id: firmware-action
-        uses: 9elements/firmware-action@v0.16.0
+        uses: 9elements/firmware-action@v0.17.0
         with:
           config: 'coreboot-linuxboot-example-matrix.json'
           target: 'linux-example-with-uroot-${{ matrix.release_type }}'
@@ -82,7 +82,7 @@ jobs:
           git submodule update --depth 1 --init --recursive --checkout
 
       - name: firmware-action
-        uses: 9elements/firmware-action@v0.16.0
+        uses: 9elements/firmware-action@v0.17.0
         with:
           config: 'coreboot-linuxboot-example-matrix.json'
           target: 'coreboot-example-with-linuxboot-${{ matrix.release_type }}'
