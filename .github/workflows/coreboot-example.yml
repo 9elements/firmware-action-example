@@ -18,7 +18,7 @@ jobs:
 
         # ANCHOR: CorebootExample
       - name: firmware-action
-        uses: 9elements/firmware-action@v0.17.5
+        uses: 9elements/firmware-action@v0.18.0
         id: firmware
         with:
           config: 'coreboot-example.json'
