@@ -39,4 +39,7 @@ jobs:
           auto-upload-artifacts-if-no-files-found: 'warn'
           auto-upload-artifacts-compression-level: '6'
           auto-upload-artifacts-overwrite: 'true'
+
+          # Remove containers and their volumes after each module is build
+          prune: 'true'
         # ANCHOR_END: AllFeatures
