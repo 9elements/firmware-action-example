@@ -17,7 +17,7 @@ jobs:
       artifact-name-RELEASE: ${{ steps.firmware-action.outputs.artifact-name }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: 'recursive'
 
@@ -48,7 +48,7 @@ jobs:
       artifact-name-RELEASE: ${{ steps.firmware-action.outputs.artifact-name }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: 'recursive'
 
@@ -74,7 +74,7 @@ jobs:
         release_type: ['DEBUG', 'RELEASE']
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           submodules: 'recursive'
       - name: Fetch few missing submodules
